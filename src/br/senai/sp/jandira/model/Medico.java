@@ -52,21 +52,15 @@ public class Medico extends Pessoa {
     }
     
     public String getEspecialidadesPorCodigo(){
-        String especialidades = new String();
         String especialidadesCriptografadas = new String();
         this.especialidades.toString();
         for(Especialidade e : this.especialidades){
-            if(this.especialidades.size() == 1){
-                especialidadesCriptografadas = especialidadesCriptografadas.concat(e.getCodigo().toString());
-                return especialidadesCriptografadas;
-               
-            } else if (this.especialidades.size() == 2){
-                
+            especialidadesCriptografadas = especialidadesCriptografadas.concat(e.getCodigo() + "&");
             }
-            
-        }
-        return especialidadesCriptografadas;
+            return especialidadesCriptografadas;
     }
+        
+    
     public ArrayList<String> getEspecialidadesPorNome(){
         ArrayList<String> especialidades = new ArrayList<>();
         int i = 0;
