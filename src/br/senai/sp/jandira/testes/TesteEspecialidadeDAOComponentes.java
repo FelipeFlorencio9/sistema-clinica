@@ -75,6 +75,12 @@ public class TesteEspecialidadeDAOComponentes {
         }
         System.out.println(m.getEspecialidades().toString());
         //TENTANDO CONCATENAR DE ALGUM JEITO PARA GRAVAR NO ARQUIVO
-     
+        String codigoTeste = "154&teste&";
+        String[] split = codigoTeste.split("&");
+        System.out.println(split[0]);
+        System.out.println(split[1]);
+        
+       
+      
     }
 }
