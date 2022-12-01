@@ -119,8 +119,8 @@ public class PanelMedico extends javax.swing.JPanel {
     private void editar() {
         Medico medico = MedicoDAO.getMedico(getCodigo());
 
-        DialogMedicos medicosDialog
-                = new DialogMedicos(
+        DialogMedico medicosDialog
+                = new DialogMedico(
                         null,
                         true,
                         TipoOperacao.ALTERAR,
@@ -147,12 +147,13 @@ public class PanelMedico extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonDeletarMedicoActionPerformed
 
     private void buttonAdicionarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicionarMedicoActionPerformed
-        DialogMedicos dialogMedico = new DialogMedicos(
+
+        DialogMedico dialogMedico = new DialogMedico(
                 null,
                 true,
                 TipoOperacao.ADICIONAR,
                 null);
-
+        
         dialogMedico.setVisible(true);
         criarTabelaMedicos();
     }//GEN-LAST:event_buttonAdicionarMedicoActionPerformed

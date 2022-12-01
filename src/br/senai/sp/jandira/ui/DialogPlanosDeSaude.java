@@ -24,6 +24,7 @@ public class DialogPlanosDeSaude extends javax.swing.JDialog {
         this.tipoOperacao = tipoOperacao;
         this.planoDeSaude = planoDeSaude;
         
+        
         //Preencher os campos , caso o tipo de operação for ALTERAR
         if(tipoOperacao == TipoOperacao.ALTERAR){
             preencherFormulario();
@@ -36,6 +37,7 @@ public class DialogPlanosDeSaude extends javax.swing.JDialog {
         labelHome.setText("Planos de Saúde - " + tipoOperacao);
         labelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/editar.png")));
     }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

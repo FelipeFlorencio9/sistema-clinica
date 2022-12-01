@@ -12,16 +12,15 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 
-public class DialogMedicos extends javax.swing.JDialog {
+public class DialogMedico extends javax.swing.JDialog {
 
-    private TipoOperacao tipoOperacao;
-    private Medico medico;
+    private final TipoOperacao tipoOperacao;
+    private final Medico medico;
 
     private ArrayList<String> especialidadesFormatadas = new ArrayList<>();
-    private ArrayList<Especialidade> especialidadesBanco = EspecialidadeDAO.listarTodos();
     private DefaultListModel<String> especialidadesModel = new DefaultListModel<String>();
     
-    public DialogMedicos(
+    public DialogMedico(
             java.awt.Frame parent,
             boolean modal,
             TipoOperacao tipoOperacao,
@@ -30,10 +29,11 @@ public class DialogMedicos extends javax.swing.JDialog {
         initComponents();
         this.tipoOperacao = tipoOperacao;
         this.medico = medico;
-        carregarEspecialidades();
+        carregarTodasEspecialidades();
+        
         if (tipoOperacao == TipoOperacao.ALTERAR) {
             preencherFormulario();
-        }
+        } 
     }
 
     private void preencherFormulario() {
@@ -42,31 +42,19 @@ public class DialogMedicos extends javax.swing.JDialog {
         textFieldNomeDoMedico.setText(medico.getNome());
         textFieldEmail.setText(medico.getEmail());
         textFieldDataDeNascimento.setText(medico.getDataDeNascimento());
-        textFieldTelefone.setText(medico.getTelefone());
-//        for(String e : medico.getListaDeEspecialidadesDoMedico()){
-//            
-//            }
-        
-//        for(Especialidade e: especialidadesBancoMedico){;
-//            especialidadesSelecionadasView.add(
-//                    e.getCodigo().toString() 
-//                    + " - " + 
-//                    e.getNome());
-//        }
-        
-     
+        textFieldTelefone.setText(medico.getTelefone());  
+        carregarTodasEspecialidades();
         labelHome.setText("Médicos - " + tipoOperacao);
         labelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/editar.png")));
     }
-    private void carregarEspecialidades(){
+    private void carregarTodasEspecialidades(){
         for(Especialidade e : EspecialidadeDAO.listarTodos()){
             especialidadesFormatadas.add(e.getEspecialidadeComCodigoENome());
         }
         especialidadesModel.addAll(especialidadesFormatadas);
-        jListEspecialidades.setModel(especialidadesModel);
-        
-        
+        jListTodos.setModel(especialidadesModel);
     }
+    
     
     public String getTextFieldCRM(){
         return textFieldCrm.toString();
@@ -101,7 +89,7 @@ public class DialogMedicos extends javax.swing.JDialog {
         jListSelecionados = new javax.swing.JList<>();
         labelCodigo1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jListEspecialidades = new javax.swing.JList<>();
+        jListTodos = new javax.swing.JList<>();
         labelCodigo3 = new javax.swing.JLabel();
         labelCodigo4 = new javax.swing.JLabel();
         labelCodigo5 = new javax.swing.JLabel();
@@ -205,12 +193,12 @@ public class DialogMedicos extends javax.swing.JDialog {
         panelHome.add(labelCodigo1);
         labelCodigo1.setBounds(240, 10, 330, 30);
 
-        jListEspecialidades.setModel(new javax.swing.AbstractListModel<String>() {
+        jListTodos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jListEspecialidades);
+        jScrollPane2.setViewportView(jListTodos);
 
         panelHome.add(jScrollPane2);
         jScrollPane2.setBounds(30, 200, 140, 170);
@@ -448,8 +436,8 @@ public class DialogMedicos extends javax.swing.JDialog {
     private javax.swing.JButton buttonSalvar;
     private javax.swing.JButton jButtonAdicionarEspecialidade;
     private javax.swing.JButton jButtonRemoverEspecialidade;
-    private javax.swing.JList<String> jListEspecialidades;
     private javax.swing.JList<String> jListSelecionados;
+    private javax.swing.JList<String> jListTodos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelCodigo1;
