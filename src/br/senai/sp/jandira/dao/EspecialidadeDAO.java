@@ -12,66 +12,68 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 
 public class EspecialidadeDAO {
-
-    private Especialidade especialidade;
-    private static ArrayList<Especialidade> especialidades = new ArrayList<>();
     
-    private final static String ARQUIVO = "C:\\Users\\22282108\\Documents\\NetBeansProjects\\clinica-java\\src\\br\\senai\\sp\\jandira\\repositorios\\especialidade.txt";
+    //MEU BANCO DE DADOS
+    private static ArrayList<Especialidade> dataBaseEspecialidades = new ArrayList<>();
+    
+//    private final static String ARQUIVO = "C:\\Users\\22282108\\Documents\\NetBeansProjects\\clinica-java\\src\\br\\senai\\sp\\jandira\\repositorios\\especialidade.txt";
+//    private final static Path PATH = Paths.get(ARQUIVO);
+//    private final static String ARQUIVO_TEMP = "C:\\Users\\22282108\\Documents\\NetBeansProjects\\clinica-java\\src\\br\\senai\\sp\\jandira\\repositorios\\especialidade_temp.txt";
+//    private final static Path PATH_TEMP = Paths.get(ARQUIVO_TEMP);
+    
+    private final static String ARQUIVO = 
+           "/home/felipedeoliveiraflorencio/Documentos/sistema-clinica/src/br/senai/sp/jandira/repositorios/especialidade.txt";
     private final static Path PATH = Paths.get(ARQUIVO);
-    private final static String ARQUIVO_TEMP = "C:\\Users\\22282108\\Documents\\NetBeansProjects\\clinica-java\\src\\br\\senai\\sp\\jandira\\repositorios\\especialidade_temp.txt";
+    private final static String ARQUIVO_TEMP = 
+           "/home/felipedeoliveiraflorencio/Documentos/sistema-clinica/src/br/senai/sp/jandira/repositorios/especialidade_temp.txt";
     private final static Path PATH_TEMP = Paths.get(ARQUIVO_TEMP);
-
+    
     //ARQUIVO é o caminho e o PATH é o caminho convertido
     public EspecialidadeDAO() {
 
     }
 
     public EspecialidadeDAO(Especialidade especialidade) {
-        this.especialidade = especialidade;
     }
 
     public static void gravar(Especialidade especialidade) {
-        especialidades.add(especialidade);
-        
+        dataBaseEspecialidades.add(especialidade);
         try {
             BufferedWriter bw = Files.newBufferedWriter(
                     PATH,
                     StandardOpenOption.APPEND,
                     StandardOpenOption.WRITE);
-            String novaEspecialidade = especialidade.getEspecialidadeSeparadoPorPontoEVirgula();
             
+            String novaEspecialidade = especialidade.getEspecialidadeSeparadoPorPontoEVirgula();
             bw.write(novaEspecialidade);
             bw.newLine();
             bw.close();
-
         } catch (IOException e) {
             JOptionPane.showMessageDialog(
                     null,
                     "Ocorreu um erro ao gravar.\n\n Entre em contato com o suporte.",
-                    "Erro ao gravar.",
+                    "Erro de Gravação",
                     JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public static ArrayList<Especialidade> listarTodos() {
-        return especialidades;
+        return dataBaseEspecialidades;
     }
 
     public void setEspecialidade(Especialidade especialidade) {
-        this.especialidade = especialidade;
     }
 
-    public static ArrayList<Especialidade> getListaDeEspecialidades() {
+    public static void getListaDeEspecialidades() {
         try {
+            
             BufferedReader br = Files.newBufferedReader(PATH);
  
             String linha = br.readLine();
             
-
             while(linha != null && !linha.isEmpty()){
 
                 String[] linhaVetor = linha.split(";");
@@ -81,13 +83,13 @@ public class EspecialidadeDAO {
                          linhaVetor[1],
                          linhaVetor[2]);
 
-                especialidades.add(novaEspecialidade);
+                dataBaseEspecialidades.add(novaEspecialidade);
  
                 linha = br.readLine();
                 
             }
-            br.close();
             
+            br.close();
             
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(
@@ -96,15 +98,14 @@ public class EspecialidadeDAO {
                     "Erro de leitura",
                     JOptionPane.ERROR_MESSAGE);
         }
-        return especialidades;
     }
 
     public static DefaultTableModel getTableModel() {
 
-        Object[][] dados = new Object[especialidades.size()][3];
+        Object[][] dados = new Object[dataBaseEspecialidades.size()][3];
 
         int i = 0;
-        for (Especialidade e : especialidades) {
+        for (Especialidade e : dataBaseEspecialidades) {
             dados[i][0] = e.getCodigo();
             dados[i][1] = e.getNome();
             dados[i][2] = e.getDescricao();
@@ -120,9 +121,9 @@ public class EspecialidadeDAO {
 
     public static boolean excluir(Integer codigo) {
 
-        for (Especialidade e : especialidades) {
+        for (Especialidade e : dataBaseEspecialidades) {
             if (e.getCodigo().equals(codigo)) {
-                especialidades.remove(e);
+                dataBaseEspecialidades.remove(e);
                 break;
             }
 
@@ -146,7 +147,7 @@ public class EspecialidadeDAO {
                     StandardOpenOption.WRITE);
             
             //Iterar a lista para adicionar os planos no arquivo temporário
-            for (Especialidade e : especialidades){
+            for (Especialidade e : dataBaseEspecialidades){
                 bwTemp.write(e.getEspecialidadeSeparadoPorPontoEVirgula());
                 bwTemp.newLine();
             }
@@ -172,7 +173,7 @@ public class EspecialidadeDAO {
    
      public static ArrayList<String> getListaNomesDeEspecialidades() {
         ArrayList<String> dados = new ArrayList<>();
-        for (Especialidade e : especialidades) {
+        for (Especialidade e : dataBaseEspecialidades) {
             dados.add(e.getNome());
         }
          DefaultListModel<String> ListaModel = new DefaultListModel<>();
@@ -185,7 +186,7 @@ public class EspecialidadeDAO {
     
     public static Especialidade getEspecialidade(Integer codigo) {
 
-        for (Especialidade e : especialidades) {
+        for (Especialidade e : dataBaseEspecialidades) {
             if (e.getCodigo().equals(codigo)) {
                 return e;
             }
@@ -195,9 +196,9 @@ public class EspecialidadeDAO {
     }
 
     public static void atualizar(Especialidade especialidade) {
-        for (Especialidade e : especialidades) {
+        for (Especialidade e : dataBaseEspecialidades) {
             if (e.getCodigo().equals(especialidade.getCodigo())) {
-                especialidades.set(especialidades.indexOf(e), especialidade);
+                dataBaseEspecialidades.set(dataBaseEspecialidades.indexOf(e), especialidade);
                 break;
             }
         }

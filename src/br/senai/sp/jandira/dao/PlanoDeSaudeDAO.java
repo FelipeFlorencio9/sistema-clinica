@@ -16,12 +16,19 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PlanoDeSaudeDAO { //simular nosso banco de dados
+    //MEU BANCO DE DADOS
+    private static ArrayList<PlanoDeSaude> dataBasePlanosDeSaude = new ArrayList<>();
 
-    private PlanoDeSaude planoDeSaude;
-    private static ArrayList<PlanoDeSaude> planos = new ArrayList<>();
-
-    private static final String ARQUIVO = "C:\\Users\\22282108\\Documents\\NetBeansProjects\\clinica-java\\src\\br\\senai\\sp\\jandira\\repositorios\\plano_de_saude.txt";
-    private static final String ARQUIVO_TEMP = "C:\\Users\\22282108\\Documents\\NetBeansProjects\\clinica-java\\src\\br\\senai\\sp\\jandira\\repositorios\\plano_de_saude_temp.txt";
+    //CAMINHOS
+    
+    //WINDOWNS
+//    private static final String ARQUIVO = "C:\\Users\\22282108\\Documents\\NetBeansProjects\\clinica-java\\src\\br\\senai\\sp\\jandira\\repositorios\\plano_de_saude.txt";
+//    private static final String ARQUIVO_TEMP = "C:\\Users\\22282108\\Documents\\NetBeansProjects\\clinica-java\\src\\br\\senai\\sp\\jandira\\repositorios\\plano_de_saude_temp.txt";
+//    private static final Path PATH = Paths.get(ARQUIVO);
+//    private static final Path PATH_TEMP = Paths.get(ARQUIVO_TEMP);
+    
+    private static final String ARQUIVO = "/home/felipedeoliveiraflorencio/Documentos/sistema-clinica/src/br/senai/sp/jandira/repositorios/plano_de_saude.txt";
+    private static final String ARQUIVO_TEMP = "/home/felipedeoliveiraflorencio/Documentos/sistema-clinica/src/br/senai/sp/jandira/repositorios/plano_de_saude_temp.txt";
     private static final Path PATH = Paths.get(ARQUIVO);
     private static final Path PATH_TEMP = Paths.get(ARQUIVO_TEMP);
 
@@ -31,11 +38,10 @@ public class PlanoDeSaudeDAO { //simular nosso banco de dados
     }
 
     public PlanoDeSaudeDAO(PlanoDeSaude planoDeSaude) {
-        this.planoDeSaude = planoDeSaude;
     }
 
     public static void inserirPlanoDeSaude(PlanoDeSaude planoDeSaude) {
-        planos.add(planoDeSaude);
+        dataBasePlanosDeSaude.add(planoDeSaude);
     
         //Gravar plano de saúde no arquivo
         
@@ -62,11 +68,10 @@ public class PlanoDeSaudeDAO { //simular nosso banco de dados
     }
 
     public static ArrayList<PlanoDeSaude> listarTodos() {
-        return planos;
+        return dataBasePlanosDeSaude;
     }
 
     public void setPlanoDeSaude(PlanoDeSaude planoDeSaude) {
-        this.planoDeSaude = planoDeSaude;
     }
 
     public static void getListaPlanosDeSaude() {
@@ -89,7 +94,7 @@ public class PlanoDeSaudeDAO { //simular nosso banco de dados
                          linhaVetor[1],
                          linhaVetor[2]);
                 //Adiciona novo plano da lista de exibição
-                planos.add(novoPlanoDeSaude);
+                dataBasePlanosDeSaude.add(novoPlanoDeSaude);
                 //Ler a próxima linha
                 linha = br.readLine();
                 
@@ -108,11 +113,11 @@ public class PlanoDeSaudeDAO { //simular nosso banco de dados
 
     public static DefaultTableModel getTableModel() {
         //Matriz que receberá os planos de saúde que serão utilizados na Tabela JTable
-        Object[][] dados = new Object[planos.size()][3];
+        Object[][] dados = new Object[dataBasePlanosDeSaude.size()][3];
 
         //For Each para extrair cada objeto plano de saúde do array list planos e separar cada dado na matriz dados;
         int i = 0;
-        for (PlanoDeSaude p : planos) {
+        for (PlanoDeSaude p : dataBasePlanosDeSaude) {
             dados[i][0] = p.getCodigo();
             dados[i][1] = p.getOperadora();
             dados[i][2] = p.getTipoDoPlano();
@@ -132,9 +137,9 @@ public class PlanoDeSaudeDAO { //simular nosso banco de dados
 
     public static boolean excluir(Integer codigo) {
 
-        for (PlanoDeSaude p : planos) {
+        for (PlanoDeSaude p : dataBasePlanosDeSaude) {
             if (p.getCodigo().equals(codigo)) {
-                planos.remove(p);
+                dataBasePlanosDeSaude.remove(p);
                 break;
             }
 
@@ -158,7 +163,7 @@ public class PlanoDeSaudeDAO { //simular nosso banco de dados
                     StandardOpenOption.WRITE);
             
             //Iterar a lista para adicionar os planos no arquivo temporário
-            for (PlanoDeSaude p :planos){
+            for (PlanoDeSaude p :dataBasePlanosDeSaude){
                 bwTemp.write(p.getPlanoDeSaudeSeparadoPorPontoEVirgula());
                 bwTemp.newLine();
             }
@@ -185,7 +190,7 @@ public class PlanoDeSaudeDAO { //simular nosso banco de dados
 
     public static PlanoDeSaude getPlanoDeSaude(Integer codigo) {
 
-        for (PlanoDeSaude p : planos) {
+        for (PlanoDeSaude p : dataBasePlanosDeSaude) {
             if (p.getCodigo().equals(codigo)) {
                 return p;
             }
@@ -195,9 +200,9 @@ public class PlanoDeSaudeDAO { //simular nosso banco de dados
     }
 
     public static void atualizar(PlanoDeSaude planoDeSaude) {
-        for (PlanoDeSaude p : planos) {
+        for (PlanoDeSaude p : dataBasePlanosDeSaude) {
             if (p.getCodigo().equals(planoDeSaude.getCodigo())) {
-                planos.set(planos.indexOf(p), planoDeSaude);
+                dataBasePlanosDeSaude.set(dataBasePlanosDeSaude.indexOf(p), planoDeSaude);
                 break;
             }
             atualizarArquivo();
@@ -224,7 +229,7 @@ public class PlanoDeSaudeDAO { //simular nosso banco de dados
                     StandardOpenOption.WRITE);
             
             //Iterar a lista para adicionar os planos no arquivo temporário
-            for (PlanoDeSaude p :planos){
+            for (PlanoDeSaude p :dataBasePlanosDeSaude){
                 bwTemp.write(p.getPlanoDeSaudeSeparadoPorPontoEVirgula());
                 bwTemp.newLine();
             }

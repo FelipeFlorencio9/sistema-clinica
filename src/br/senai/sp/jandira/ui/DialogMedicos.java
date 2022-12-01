@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.view;
+package br.senai.sp.jandira.ui;
 
 import br.senai.sp.jandira.dao.EspecialidadeDAO;
 import br.senai.sp.jandira.dao.MedicoDAO;
@@ -197,7 +197,7 @@ public class DialogMedicos extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jListSelecionados);
 
         panelHome.add(jScrollPane1);
-        jScrollPane1.setBounds(290, 200, 140, 146);
+        jScrollPane1.setBounds(290, 200, 140, 170);
 
         labelCodigo1.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         labelCodigo1.setForeground(new java.awt.Color(51, 153, 255));
@@ -213,7 +213,7 @@ public class DialogMedicos extends javax.swing.JDialog {
         jScrollPane2.setViewportView(jListEspecialidades);
 
         panelHome.add(jScrollPane2);
-        jScrollPane2.setBounds(30, 200, 140, 146);
+        jScrollPane2.setBounds(30, 200, 140, 170);
 
         labelCodigo3.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         labelCodigo3.setForeground(new java.awt.Color(51, 153, 255));
@@ -363,7 +363,7 @@ public class DialogMedicos extends javax.swing.JDialog {
         
         if (validarCadastro()) {
 
-            MedicoDAO.adicionarMedico(medico);
+            MedicoDAO.inserir(medico);
 
             JOptionPane.showMessageDialog(
                     this,
@@ -431,7 +431,7 @@ public class DialogMedicos extends javax.swing.JDialog {
         medico.setDataDeNascimento(textFieldDataDeNascimento.getText());
 //        medico.setEspecialidades(especialidadesBancoMedico);
         if(validarCadastro()){
-            MedicoDAO.atualizarMedico(medico);
+            MedicoDAO.atualizar(medico);
             JOptionPane.showMessageDialog(
                 null, 
                 "Plano de Saúde atualizado com sucesso.",

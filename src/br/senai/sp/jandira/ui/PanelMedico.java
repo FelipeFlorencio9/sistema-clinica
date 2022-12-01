@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.view;
+package br.senai.sp.jandira.ui;
 
 import br.senai.sp.jandira.dao.MedicoDAO;
 import br.senai.sp.jandira.model.Medico;
@@ -9,13 +9,12 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class PanelMedico extends javax.swing.JPanel {
+
     int linha;
-    private DefaultTableModel tableMedicoModel = new DefaultTableModel();
-    private ArrayList<Medico> medicos = new ArrayList<>();
-    private String[] titulos = {"Código", "CRM", "Nome do(a) Médico(a)", "Especialidades"};
+
     public PanelMedico() {
         initComponents();
-        criarTabelaDeMedicos();
+        criarTabelaMedicos();
     }
 
     @SuppressWarnings("unchecked")
@@ -87,23 +86,22 @@ public class PanelMedico extends javax.swing.JPanel {
         add(buttonAdicionarMedico);
         buttonAdicionarMedico.setBounds(810, 340, 70, 50);
     }// </editor-fold>//GEN-END:initComponents
-    private void criarTabelaDeMedicos() {
-      
+    private void criarTabelaMedicos() {
+
         tableMedico.setModel(MedicoDAO.getTableModel());
-        
+
         tableMedico.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        
+
         tableMedico.getColumnModel().getColumn(0).setPreferredWidth(100);
         tableMedico.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tableMedico.getColumnModel().getColumn(2).setPreferredWidth(200);
-        tableMedico.getColumnModel().getColumn(3).setPreferredWidth(417);
+        tableMedico.getColumnModel().getColumn(2).setPreferredWidth(309);
+        tableMedico.getColumnModel().getColumn(3).setPreferredWidth(308);
         tableMedico.getTableHeader().setReorderingAllowed(false);
 
-       
         tableMedico.setDefaultEditor(Object.class, null);
     }
- 
-  
+
+
     private void buttonEditarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarMedicoActionPerformed
 
         linha = tableMedico.getSelectedRow();
@@ -112,25 +110,24 @@ public class PanelMedico extends javax.swing.JPanel {
             editar();
         } else {
             JOptionPane.showMessageDialog(
-                this,
-                "Por favor, selecione um médico para alterar.",
-                "Médico",
-                JOptionPane.WARNING_MESSAGE);
+                    this,
+                    "Por favor, selecione um médico para alterar.",
+                    "Médico",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_buttonEditarMedicoActionPerformed
-    private void editar(){
+    private void editar() {
         Medico medico = MedicoDAO.getMedico(getCodigo());
-        
-        DialogMedicos medicosDialog = 
-                new DialogMedicos(
-                        null, 
+
+        DialogMedicos medicosDialog
+                = new DialogMedicos(
+                        null,
                         true,
-                        TipoOperacao.ALTERAR, 
+                        TipoOperacao.ALTERAR,
                         medico);
-        
+
         medicosDialog.setVisible(true);
-        
-        
+
     }
     private void buttonDeletarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeletarMedicoActionPerformed
         //Obtemos o indice da linha selecionada na tabela
@@ -142,22 +139,22 @@ public class PanelMedico extends javax.swing.JPanel {
             excluir();
         } else {
             JOptionPane.showConfirmDialog(
-                this,
-                "Por favor, selecione o plano que você deseja excluir!",
-                "Plano de saúde",
-                JOptionPane.ERROR_MESSAGE);
+                    this,
+                    "Por favor, selecione o plano que você deseja excluir!",
+                    "Plano de saúde",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_buttonDeletarMedicoActionPerformed
 
     private void buttonAdicionarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicionarMedicoActionPerformed
-    DialogMedicos dialogMedico = new DialogMedicos(
-                null, 
-                true, 
-                TipoOperacao.ADICIONAR, 
+        DialogMedicos dialogMedico = new DialogMedicos(
+                null,
+                true,
+                TipoOperacao.ADICIONAR,
                 null);
 
         dialogMedico.setVisible(true);
-        criarTabelaDeMedicos();
+        criarTabelaMedicos();
     }//GEN-LAST:event_buttonAdicionarMedicoActionPerformed
     private void excluir() {
         int resposta = JOptionPane.showConfirmDialog(
@@ -167,17 +164,18 @@ public class PanelMedico extends javax.swing.JPanel {
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
         System.out.println(resposta);
-        
+
         if (resposta == 0) {
-            MedicoDAO.removerMedico(getCodigo());
-            criarTabelaDeMedicos();
+            MedicoDAO.remover(getCodigo());
+            criarTabelaMedicos();
         }
     }
-    private Integer getCodigo(){
-            String codigoStr = tableMedico.getValueAt(linha, 0).toString();
-            return Integer.valueOf(codigoStr);
+
+    private Integer getCodigo() {
+        String codigoStr = tableMedico.getValueAt(linha, 0).toString();
+        return Integer.valueOf(codigoStr);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdicionarMedico;
     private javax.swing.JButton buttonDeletarMedico;

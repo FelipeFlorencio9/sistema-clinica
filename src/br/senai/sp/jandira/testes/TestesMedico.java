@@ -14,7 +14,7 @@ public class TestesMedico {
     public static void main(String[] args) {
         
         
-        MedicoDAO.getTodosOsMedicos();
+        MedicoDAO.getListaDeMedicos();
         
         //Persistindo um médico como pessoa
         

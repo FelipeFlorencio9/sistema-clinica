@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package br.senai.sp.jandira.view;
+package br.senai.sp.jandira.ui;
 
 /**
  *
@@ -38,7 +38,7 @@ public class PanelHomeFrame extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
         jLabel2.setText("Site: www.sisacon.com.br");
         panelHome.add(jLabel2);
-        jLabel2.setBounds(40, 260, 400, 17);
+        jLabel2.setBounds(40, 260, 400, 20);
 
         jLabel3.setFont(new java.awt.Font("Consolas", 1, 48)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 153, 255));
@@ -49,12 +49,12 @@ public class PanelHomeFrame extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         jLabel4.setText("Sistema para Agendamento de Consultas");
         panelHome.add(jLabel4);
-        jLabel4.setBounds(40, 110, 400, 22);
+        jLabel4.setBounds(40, 110, 400, 26);
 
         jLabel5.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
         jLabel5.setText("Email: maisasilva@gmail.com");
         panelHome.add(jLabel5);
-        jLabel5.setBounds(40, 220, 400, 17);
+        jLabel5.setBounds(40, 220, 400, 20);
 
         jLabel6.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
         jLabel6.setText("Telefone: (11) 4002-8922");

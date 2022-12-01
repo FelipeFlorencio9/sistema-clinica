@@ -42,7 +42,7 @@ public class Medico extends Pessoa {
         
        
     }
-
+    
     public Integer getCodigo() {
         return codigo;
     }
@@ -50,7 +50,16 @@ public class Medico extends Pessoa {
     public ArrayList<Especialidade> getEspecialidades() {
         return especialidades;
     }
-
+    
+    public ArrayList<String> getEspecialidadesPorNome(){
+        ArrayList<String> especialidades = new ArrayList<>();
+        int i = 0;
+        while(i <= especialidades.size()){
+            Especialidade e = this.especialidades.get(i);
+            especialidades.add(e.getNome());
+        }
+        return especialidades;
+    }    
     public void setEspecialidades(ArrayList<Especialidade> especialidades) {
         this.especialidades = especialidades;
     }
