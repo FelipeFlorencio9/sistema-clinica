@@ -19,7 +19,7 @@ public class DialogMedico extends javax.swing.JDialog {
 
     private ArrayList<String> especialidadesFormatadas = new ArrayList<>();
     private DefaultListModel<String> especialidadesModel = new DefaultListModel<String>();
-    
+    private DefaultListModel<String> selecoesModel = new DefaultListModel<>();
     public DialogMedico(
             java.awt.Frame parent,
             boolean modal,
@@ -30,7 +30,7 @@ public class DialogMedico extends javax.swing.JDialog {
         this.tipoOperacao = tipoOperacao;
         this.medico = medico;
         carregarTodasEspecialidades();
-        
+        limparModelSelecoes();
         if (tipoOperacao == TipoOperacao.ALTERAR) {
             preencherFormulario();
         } 
@@ -54,7 +54,9 @@ public class DialogMedico extends javax.swing.JDialog {
         especialidadesModel.addAll(especialidadesFormatadas);
         jListTodos.setModel(especialidadesModel);
     }
-    
+    private void limparModelSelecoes(){
+        jListSelecionados.setModel(selecoesModel);
+    }
     
     public String getTextFieldCRM(){
         return textFieldCrm.toString();
@@ -100,8 +102,8 @@ public class DialogMedico extends javax.swing.JDialog {
         textFieldTelefone = new javax.swing.JTextField();
         textFieldEmail = new javax.swing.JTextField();
         labelCodigo9 = new javax.swing.JLabel();
-        jButtonRemoverEspecialidade = new javax.swing.JButton();
-        jButtonAdicionarEspecialidade = new javax.swing.JButton();
+        jRemoveButton = new javax.swing.JButton();
+        jSelectionButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -162,7 +164,7 @@ public class DialogMedico extends javax.swing.JDialog {
             }
         });
         panelHome.add(buttonCancelar);
-        buttonCancelar.setBounds(480, 360, 130, 45);
+        buttonCancelar.setBounds(520, 370, 100, 40);
 
         buttonSalvar.setBackground(new java.awt.Color(153, 204, 255));
         buttonSalvar.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
@@ -175,7 +177,7 @@ public class DialogMedico extends javax.swing.JDialog {
             }
         });
         panelHome.add(buttonSalvar);
-        buttonSalvar.setBounds(340, 360, 130, 45);
+        buttonSalvar.setBounds(390, 370, 110, 40);
 
         jListSelecionados.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -185,7 +187,7 @@ public class DialogMedico extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jListSelecionados);
 
         panelHome.add(jScrollPane1);
-        jScrollPane1.setBounds(290, 200, 140, 170);
+        jScrollPane1.setBounds(290, 210, 140, 150);
 
         labelCodigo1.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         labelCodigo1.setForeground(new java.awt.Color(51, 153, 255));
@@ -201,7 +203,7 @@ public class DialogMedico extends javax.swing.JDialog {
         jScrollPane2.setViewportView(jListTodos);
 
         panelHome.add(jScrollPane2);
-        jScrollPane2.setBounds(30, 200, 140, 170);
+        jScrollPane2.setBounds(30, 210, 130, 150);
 
         labelCodigo3.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         labelCodigo3.setForeground(new java.awt.Color(51, 153, 255));
@@ -213,7 +215,7 @@ public class DialogMedico extends javax.swing.JDialog {
         labelCodigo4.setForeground(new java.awt.Color(51, 153, 255));
         labelCodigo4.setText("Selecionadas");
         panelHome.add(labelCodigo4);
-        labelCodigo4.setBounds(290, 170, 140, 30);
+        labelCodigo4.setBounds(290, 180, 140, 30);
 
         labelCodigo5.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         labelCodigo5.setForeground(new java.awt.Color(51, 153, 255));
@@ -225,7 +227,7 @@ public class DialogMedico extends javax.swing.JDialog {
         labelCodigo6.setForeground(new java.awt.Color(51, 153, 255));
         labelCodigo6.setText("Especialidades");
         panelHome.add(labelCodigo6);
-        labelCodigo6.setBounds(30, 170, 170, 30);
+        labelCodigo6.setBounds(30, 180, 140, 30);
 
         textFieldDataDeNascimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,25 +271,25 @@ public class DialogMedico extends javax.swing.JDialog {
         panelHome.add(labelCodigo9);
         labelCodigo9.setBounds(150, 90, 220, 30);
 
-        jButtonRemoverEspecialidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/seta-esquerda.png"))); // NOI18N
-        jButtonRemoverEspecialidade.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButtonRemoverEspecialidade.addActionListener(new java.awt.event.ActionListener() {
+        jRemoveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/seta-esquerda.png"))); // NOI18N
+        jRemoveButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jRemoveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRemoverEspecialidadeActionPerformed(evt);
+                jRemoveButtonActionPerformed(evt);
             }
         });
-        panelHome.add(jButtonRemoverEspecialidade);
-        jButtonRemoverEspecialidade.setBounds(210, 250, 50, 40);
+        panelHome.add(jRemoveButton);
+        jRemoveButton.setBounds(200, 270, 50, 40);
 
-        jButtonAdicionarEspecialidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/seta-direita.png"))); // NOI18N
-        jButtonAdicionarEspecialidade.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButtonAdicionarEspecialidade.addActionListener(new java.awt.event.ActionListener() {
+        jSelectionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/seta-direita.png"))); // NOI18N
+        jSelectionButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jSelectionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAdicionarEspecialidadeActionPerformed(evt);
+                jSelectionButtonActionPerformed(evt);
             }
         });
-        panelHome.add(jButtonAdicionarEspecialidade);
-        jButtonAdicionarEspecialidade.setBounds(210, 200, 50, 40);
+        panelHome.add(jSelectionButton);
+        jSelectionButton.setBounds(200, 210, 50, 40);
 
         getContentPane().add(panelHome);
         panelHome.setBounds(10, 100, 650, 420);
@@ -327,13 +329,25 @@ public class DialogMedico extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldEmailActionPerformed
 
-    private void jButtonRemoverEspecialidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverEspecialidadeActionPerformed
+    private void jRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRemoveButtonActionPerformed
+        List<String> selecionados = jListSelecionados.getSelectedValuesList();
+        especialidadesModel.addAll(selecionados);
+        for(String s : selecionados){
+            if(selecoesModel.contains(s)){
+                selecoesModel.removeElement(s);
+            }
+        }
+    }//GEN-LAST:event_jRemoveButtonActionPerformed
 
-    }//GEN-LAST:event_jButtonRemoverEspecialidadeActionPerformed
-
-    private void jButtonAdicionarEspecialidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarEspecialidadeActionPerformed
-      
-    }//GEN-LAST:event_jButtonAdicionarEspecialidadeActionPerformed
+    private void jSelectionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSelectionButtonActionPerformed
+        List<String> selecionados  = jListTodos.getSelectedValuesList();
+        selecoesModel.addAll(selecionados);
+        for(String s : selecionados){
+            if(especialidadesModel.contains(s)){
+                especialidadesModel.removeElement(s);
+            }
+        }  
+    }//GEN-LAST:event_jSelectionButtonActionPerformed
 
     private void textFieldCrmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCrmActionPerformed
         // TODO add your handling code here:
@@ -434,12 +448,12 @@ public class DialogMedico extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelar;
     private javax.swing.JButton buttonSalvar;
-    private javax.swing.JButton jButtonAdicionarEspecialidade;
-    private javax.swing.JButton jButtonRemoverEspecialidade;
     private javax.swing.JList<String> jListSelecionados;
     private javax.swing.JList<String> jListTodos;
+    private javax.swing.JButton jRemoveButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jSelectionButton;
     private javax.swing.JLabel labelCodigo1;
     private javax.swing.JLabel labelCodigo3;
     private javax.swing.JLabel labelCodigo4;
