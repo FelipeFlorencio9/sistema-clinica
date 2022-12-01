@@ -39,7 +39,7 @@ public class Medico extends Pessoa {
         super.setTelefone(telefone);
         super.setEmail(email);
         super.setDataDeNascimento(dataDeNascimento);
-        
+        atualizarCodigo();
        
     }
     
@@ -51,6 +51,22 @@ public class Medico extends Pessoa {
         return especialidades;
     }
     
+    public String getEspecialidadesPorCodigo(){
+        String especialidades = new String();
+        String especialidadesCriptografadas = new String();
+        this.especialidades.toString();
+        for(Especialidade e : this.especialidades){
+            if(this.especialidades.size() == 1){
+                especialidadesCriptografadas = especialidadesCriptografadas.concat(e.getCodigo().toString());
+                return especialidadesCriptografadas;
+               
+            } else if (this.especialidades.size() == 2){
+                
+            }
+            
+        }
+        return especialidadesCriptografadas;
+    }
     public ArrayList<String> getEspecialidadesPorNome(){
         ArrayList<String> especialidades = new ArrayList<>();
         int i = 0;
@@ -87,15 +103,16 @@ public class Medico extends Pessoa {
         this.codigo = contador;
     }
     
-     public String getInformacoesMedicoComPontoVirgula() {
-        String codigoEspecialidades = "";
-        for(Especialidade e : especialidades){    
-        codigoEspecialidades += e.getCodigo() + ";";
-        }
     
-        return this.codigo + ";" + this.crm + ";" + getNome() + ";" + getTelefone() + ";" + getEmail() + ";" + getDataDeNascimento() + ";" + codigoEspecialidades ;
     
-}
+    
+    @Override
+    public String getSeparadoPorPontoEVirgula(){
+        String strMedico = this.codigo + ";" + this.crm + ";" + super.getSeparadoPorPontoEVirgula() + this.getEspecialidadesPorCodigo();
+        return strMedico;
+    }
+    
+  
 //    public ArrayList<Especialidade> getListaDeEspecialidadesDoMedico() {
 ////        ArrayList<Especialidade> dados = new ArrayList<>();
 ////        for (Especialidade e : especialidades) {

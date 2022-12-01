@@ -92,8 +92,8 @@ public class MedicoDAO {
                     StandardOpenOption.APPEND,
                     StandardOpenOption.WRITE);
 
-            String novoPlanoDeSaude = medico.getSeparadoPorPontoEVirgula();
-            bw.write(novoPlanoDeSaude);
+            String novoMedico = medico.getSeparadoPorPontoEVirgula();
+            bw.write(novoMedico);
             bw.newLine();
             bw.close();
 

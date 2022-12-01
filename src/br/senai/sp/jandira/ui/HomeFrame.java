@@ -88,14 +88,13 @@ public class HomeFrame extends javax.swing.JFrame {
 
         buttonSaida.setBackground(new java.awt.Color(153, 204, 255));
         buttonSaida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/saida.png"))); // NOI18N
-        buttonSaida.setText("Saída");
         buttonSaida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaidaActionPerformed(evt);
             }
         });
         panelFunctions.add(buttonSaida);
-        buttonSaida.setBounds(820, 10, 110, 45);
+        buttonSaida.setBounds(870, 10, 60, 45);
 
         buttonMedicos.setBackground(new java.awt.Color(153, 204, 255));
         buttonMedicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/medico.png"))); // NOI18N
@@ -106,7 +105,7 @@ public class HomeFrame extends javax.swing.JFrame {
             }
         });
         panelFunctions.add(buttonMedicos);
-        buttonMedicos.setBounds(350, 10, 120, 45);
+        buttonMedicos.setBounds(350, 10, 140, 45);
 
         buttonPacientes.setBackground(new java.awt.Color(153, 204, 255));
         buttonPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/lista.png"))); // NOI18N
@@ -139,7 +138,7 @@ public class HomeFrame extends javax.swing.JFrame {
             }
         });
         panelFunctions.add(buttonPlanosDeSaude1);
-        buttonPlanosDeSaude1.setBounds(640, 10, 170, 45);
+        buttonPlanosDeSaude1.setBounds(680, 10, 180, 45);
 
         buttonHome.setBackground(new java.awt.Color(153, 204, 255));
         buttonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/botao-home.png"))); // NOI18N
@@ -160,7 +159,7 @@ public class HomeFrame extends javax.swing.JFrame {
             }
         });
         panelFunctions.add(buttonEspecialidade1);
-        buttonEspecialidade1.setBounds(480, 10, 150, 45);
+        buttonEspecialidade1.setBounds(500, 10, 170, 45);
 
         getContentPane().add(panelFunctions);
         panelFunctions.setBounds(0, 100, 940, 70);

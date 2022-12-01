@@ -11,15 +11,17 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
+import javax.swing.event.ListSelectionListener;
 
 public class DialogMedico extends javax.swing.JDialog {
 
     private final TipoOperacao tipoOperacao;
     private final Medico medico;
-
+    
     private ArrayList<String> especialidadesFormatadas = new ArrayList<>();
     private DefaultListModel<String> especialidadesModel = new DefaultListModel<String>();
     private DefaultListModel<String> selecoesModel = new DefaultListModel<>();
+    
     public DialogMedico(
             java.awt.Frame parent,
             boolean modal,
@@ -104,6 +106,7 @@ public class DialogMedico extends javax.swing.JDialog {
         labelCodigo9 = new javax.swing.JLabel();
         jRemoveButton = new javax.swing.JButton();
         jSelectionButton = new javax.swing.JButton();
+        jTesteSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -151,7 +154,7 @@ public class DialogMedico extends javax.swing.JDialog {
             }
         });
         panelHome.add(textFieldNomeDoMedico);
-        textFieldNomeDoMedico.setBounds(240, 40, 330, 30);
+        textFieldNomeDoMedico.setBounds(240, 40, 350, 30);
 
         buttonCancelar.setBackground(new java.awt.Color(153, 204, 255));
         buttonCancelar.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
@@ -235,13 +238,13 @@ public class DialogMedico extends javax.swing.JDialog {
             }
         });
         panelHome.add(textFieldDataDeNascimento);
-        textFieldDataDeNascimento.setBounds(390, 120, 180, 30);
+        textFieldDataDeNascimento.setBounds(390, 120, 200, 30);
 
         labelCodigo7.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         labelCodigo7.setForeground(new java.awt.Color(51, 153, 255));
         labelCodigo7.setText("Data De Nascimento");
         panelHome.add(labelCodigo7);
-        labelCodigo7.setBounds(390, 90, 180, 30);
+        labelCodigo7.setBounds(390, 90, 200, 30);
 
         labelCodigo8.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         labelCodigo8.setForeground(new java.awt.Color(51, 153, 255));
@@ -290,6 +293,15 @@ public class DialogMedico extends javax.swing.JDialog {
         });
         panelHome.add(jSelectionButton);
         jSelectionButton.setBounds(200, 210, 50, 40);
+
+        jTesteSalvar.setText("teste");
+        jTesteSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTesteSalvarActionPerformed(evt);
+            }
+        });
+        panelHome.add(jTesteSalvar);
+        jTesteSalvar.setBounds(290, 380, 72, 25);
 
         getContentPane().add(panelHome);
         panelHome.setBounds(10, 100, 650, 420);
@@ -352,25 +364,47 @@ public class DialogMedico extends javax.swing.JDialog {
     private void textFieldCrmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCrmActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldCrmActionPerformed
+
+    private void jTesteSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTesteSalvarActionPerformed
+        int i = 0;
+        while(i < selecoesModel.size()){
+            String object = selecoesModel.get(i);
+            String[] objectAtributes = object.split(" - ");
+            String codigoDoObjeto = objectAtributes[0];
+            Especialidade e  = EspecialidadeDAO.getEspecialidade(Integer.valueOf(codigoDoObjeto));
+            System.out.println(e.getNome());
+            i++;
+        }
+            
+       
+    }//GEN-LAST:event_jTesteSalvarActionPerformed
     
     
     private void gravar(){
         Medico medico = new Medico();
-        medico.setNome(textFieldNomeDoMedico.getText());
         medico.setCrm(textFieldCrm.getText());
+        medico.setNome(textFieldNomeDoMedico.getText());
         medico.setTelefone(textFieldTelefone.getText());
         medico.setEmail(textFieldEmail.getText());
         medico.setDataDeNascimento(textFieldDataDeNascimento.getText());
-       
-        
+        ArrayList<Especialidade> especMedico = new ArrayList<>();
+        int i = 0;
+        while(i < selecoesModel.size()){
+            String object = selecoesModel.get(i);
+            String[] objectAtributes = object.split(" - ");
+            String codigoDoObjeto = objectAtributes[0];
+            Especialidade e  = EspecialidadeDAO.getEspecialidade(Integer.valueOf(codigoDoObjeto));
+            especMedico.add(e);
+            i++;
+        }
+        medico.setEspecialidades(especMedico);
         if (validarCadastro()) {
-
             MedicoDAO.inserir(medico);
 
             JOptionPane.showMessageDialog(
                     this,
-                    "Plano de Saúde gravado com sucesso",
-                    "Plano De Saúde",
+                    "Especialidade gravada com sucesso!",
+                    "Especialidade",
                     JOptionPane.INFORMATION_MESSAGE);
 
             dispose();
@@ -420,7 +454,14 @@ public class DialogMedico extends javax.swing.JDialog {
 
             textFieldEmail.requestFocus();
             return false;
-        }
+        } else if (selecoesModel.isEmpty()){
+         JOptionPane.showMessageDialog(
+                 this, 
+                 "O médico deve haver pelo menos uma especialidade!",
+                  "Medico",
+                  JOptionPane.ERROR_MESSAGE);
+         return false;
+       }
         return true;
 
     }
@@ -454,6 +495,7 @@ public class DialogMedico extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jSelectionButton;
+    private javax.swing.JButton jTesteSalvar;
     private javax.swing.JLabel labelCodigo1;
     private javax.swing.JLabel labelCodigo3;
     private javax.swing.JLabel labelCodigo4;

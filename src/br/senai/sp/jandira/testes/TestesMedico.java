@@ -42,8 +42,7 @@ public class TestesMedico {
 //        System.out.println(m1.getCrm());
 //        System.out.println(m1.getEspecialidades());
 
-        
-        
+                
     }
     
     

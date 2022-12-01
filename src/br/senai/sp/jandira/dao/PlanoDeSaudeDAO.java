@@ -51,7 +51,7 @@ public class PlanoDeSaudeDAO { //simular nosso banco de dados
                     StandardOpenOption.APPEND,
                     StandardOpenOption.WRITE);
 
-            String novoPlanoDeSaude = planoDeSaude.getPlanoDeSaudeSeparadoPorPontoEVirgula();
+            String novoPlanoDeSaude = planoDeSaude.getPlanoDeSaudeSeparadoPorPontoEVirgula() ;
             
             bw.write(novoPlanoDeSaude);
             bw.newLine();

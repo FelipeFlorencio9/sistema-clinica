@@ -53,6 +53,8 @@ public class Pessoa {
     public void cumprimentar(){
         System.out.printf("Olá tudo bem? Eu sou %s\n", this.nome);
     }
+    
+    
     public String getSeparadoPorPontoEVirgula(){
         String  strPessoa = 
                 this.nome + ";" +

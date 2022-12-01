@@ -2,6 +2,7 @@ package br.senai.sp.jandira.testes;
 
 import br.senai.sp.jandira.dao.EspecialidadeDAO;
 import br.senai.sp.jandira.model.Especialidade;
+import br.senai.sp.jandira.model.Medico;
 import java.util.ArrayList;
 
 public class TesteEspecialidadeDAOComponentes {
@@ -61,7 +62,19 @@ public class TesteEspecialidadeDAOComponentes {
         System.out.println(""); 
                 
         EspecialidadeDAO.gravar(e2);
-       
+        
+        ArrayList<Especialidade> especialidades = new ArrayList<>();
+        especialidades.add(e);
+       especialidades.add(e2);
+        Medico m = new Medico();
+        m.setEspecialidades(especialidades);
+        
+        for(Especialidade es : m.getEspecialidades()){
+            String codigo = es.getCodigo().toString();
+            System.out.println(codigo);
+        }
+        System.out.println(m.getEspecialidades().toString());
+        //TENTANDO CONCATENAR DE ALGUM JEITO PARA GRAVAR NO ARQUIVO
      
     }
 }
