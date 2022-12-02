@@ -195,7 +195,7 @@ public class DialogPlanosDeSaude extends javax.swing.JDialog {
     }
     
     private void gravar(){
-    PlanoDeSaude planoDeSaude = new PlanoDeSaude();
+        PlanoDeSaude planoDeSaude = new PlanoDeSaude();
         planoDeSaude.setOperadora(textFieldTipoDaOperadora.getText());
         planoDeSaude.setTipoDoPlano(textFieldTipoDoPlano.getText());
 

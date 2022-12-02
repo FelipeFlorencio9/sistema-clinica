@@ -261,8 +261,8 @@ public class HomeFrame extends javax.swing.JFrame {
     
     private void initModelTables() {
         PlanoDeSaudeDAO.getListaPlanosDeSaude();
-        MedicoDAO.getListaDeMedicos();
         EspecialidadeDAO.getListaDeEspecialidades();
+        MedicoDAO.getListaDeMedicosNoArquivo();
     }
 
     private void passHomeToDefault() {

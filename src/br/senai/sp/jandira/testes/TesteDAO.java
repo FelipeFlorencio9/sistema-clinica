@@ -1,9 +1,12 @@
 package br.senai.sp.jandira.testes;
 
+import br.senai.sp.jandira.dao.MedicoDAO;
 import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
+import br.senai.sp.jandira.model.Medico;
 import br.senai.sp.jandira.model.PlanoDeSaude;
+import java.util.ArrayList;
 
-public class TesteDAO {
+public class TesteDAO extends MedicoDAO{
 
     public TesteDAO() {
         // TODO Auto-generated constructor stub
@@ -63,8 +66,16 @@ public class TesteDAO {
 //       
 //        int i = PlanoDeSaudeDAO.listarTodos().indexOf(plano3);
 //        System.out.println(i); 
-//       
-
+//      m
+//         ArrayList<String> especDeUmMedico = MedicoDAO.getMedico(Integer.valueOf("102")).getEspecialidadesPorNome();
+         MedicoDAO.getListaDeMedicosNoArquivo();
+        ArrayList<Medico> dataBaseMedicos= MedicoDAO.getListadeMedicos(); 
+         Medico umMedico = dataBaseMedicos.get(0);
+         System.out.println(umMedico.getCodigo());
+         for(Medico m : dataBaseMedicos){
+             System.out.println(m.getSeparadoPorPontoEVirgula());
+             System.out.println(m.getEspecialidadesPorNome());
+         }
     }
 
 }

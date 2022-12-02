@@ -108,11 +108,6 @@ public class PanelPlanosDeSaude extends javax.swing.JPanel {
                     JOptionPane.WARNING_MESSAGE);
         }
         
-        
-        
-        
-        
-
     }//GEN-LAST:event_buttonEditarPlanoDeSaudeActionPerformed
     private void editar(){
         PlanoDeSaude planoDeSaude = PlanoDeSaudeDAO.getPlanoDeSaude(getCodigo());

@@ -105,7 +105,7 @@ public class PanelMedico extends javax.swing.JPanel {
     private void buttonEditarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarMedicoActionPerformed
 
         linha = tableMedico.getSelectedRow();
-
+        System.out.println(linha);
         if (linha != -1) {
             editar();
         } else {
@@ -115,6 +115,7 @@ public class PanelMedico extends javax.swing.JPanel {
                     "Médico",
                     JOptionPane.WARNING_MESSAGE);
         }
+        
     }//GEN-LAST:event_buttonEditarMedicoActionPerformed
     private void editar() {
         Medico medico = MedicoDAO.getMedico(getCodigo());
@@ -127,7 +128,7 @@ public class PanelMedico extends javax.swing.JPanel {
                         medico);
 
         medicosDialog.setVisible(true);
-
+        criarTabelaMedicos();
     }
     private void buttonDeletarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeletarMedicoActionPerformed
         //Obtemos o indice da linha selecionada na tabela

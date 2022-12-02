@@ -27,7 +27,7 @@ public class MedicoDAO {
 //    private static final Path PATH = Paths.get(ARQUIVO);
 //    private static final Path PATH_TEMP = Paths.get(ARQUIVO_TEMP);
     //PARA LINUX
-    private static final ArrayList<Medico> medicos = new ArrayList<>();
+    
     private static final String ARQUIVO = "/home/felipedeoliveiraflorencio/Documentos/sistema-clinica/src/br/senai/sp/jandira/repositorios/medico.txt";
     private static final String ARQUIVO_TEMP = "/home/felipedeoliveiraflorencio/Documentos/sistema-clinica/src/br/senai/sp/jandira/repositorios/medico__temp.txt";
     private static final Path PATH = Paths.get(ARQUIVO);
@@ -35,8 +35,11 @@ public class MedicoDAO {
 
     public MedicoDAO() {
     }
-
-    public static void getListaDeMedicos() {
+    
+    public static ArrayList<Medico> getListadeMedicos(){
+        return dataBaseMedicos;
+    }
+    public static void getListaDeMedicosNoArquivo() {
         try {
 
             BufferedReader br = Files.newBufferedReader(PATH);
@@ -60,7 +63,7 @@ public class MedicoDAO {
                         linhaVetor[5],
                         medicoEspecialidades);
 
-                medicos.add(novoMedico);
+                dataBaseMedicos.add(novoMedico);
                 linha = br.readLine();
             }
             br.close();
@@ -85,7 +88,7 @@ public class MedicoDAO {
     }
 
     public static void inserir(Medico medico) {
-        medicos.add(medico);
+        dataBaseMedicos.add(medico);
         try {
             BufferedWriter bw = Files.newBufferedWriter(
                     PATH,
@@ -109,9 +112,9 @@ public class MedicoDAO {
 
     public static void remover(Integer id) {
 
-        for (Medico m : medicos) {
+        for (Medico m : dataBaseMedicos) {
             if (m.getCodigo().equals(id)) {
-                medicos.remove(m);
+                dataBaseMedicos.remove(m);
                 break;
             }
 
@@ -134,7 +137,7 @@ public class MedicoDAO {
                     StandardOpenOption.WRITE);
 
             //Iterar a lista para adicionar os planos no arquivo temporário
-            for (Medico m : medicos) {
+            for (Medico m : dataBaseMedicos) {
                 bwTemp.write(m.getStringMedicoForPanel());
                 bwTemp.newLine();
             }
@@ -157,22 +160,21 @@ public class MedicoDAO {
     }
 
     public static void atualizar(Medico medico) {
-        for (Medico m : medicos) {
+        for (Medico m : dataBaseMedicos) {
             if (m.getCodigo().equals(medico.getCodigo())) {
-                medicos.set(medicos.indexOf(m), medico);
+                dataBaseMedicos.set(dataBaseMedicos.indexOf(m), medico);
                 break;
-            }
-            atualizarArquivo();
+            } 
         }
-
+        atualizarArquivo();
     }
 
     public static DefaultTableModel getTableModel() {
 
-        Object[][] dados = new Object[medicos.size()][4];
+        Object[][] dados = new Object[dataBaseMedicos.size()][4];
 
         int i = 0;
-        for (Medico m : medicos) {
+        for (Medico m : dataBaseMedicos) {
             dados[i][0] = m.getCodigo().toString();
             dados[i][1] = m.getCrm();
             dados[i][2] = m.getNome();
@@ -192,16 +194,13 @@ public class MedicoDAO {
 
         File arquivoAtual = new File(ARQUIVO);
         File arquivoTemp = new File(ARQUIVO_TEMP);
-
         try {
             arquivoTemp.createNewFile();
-
             BufferedWriter bwTemp = Files.newBufferedWriter(
                     PATH_TEMP,
                     StandardOpenOption.APPEND,
                     StandardOpenOption.WRITE);
-
-            for (Medico m : medicos) {
+            for (Medico m : dataBaseMedicos) {
                 bwTemp.write(m.getSeparadoPorPontoEVirgula());
                 bwTemp.newLine();
             }
@@ -221,7 +220,7 @@ public class MedicoDAO {
 
     public static String[] getEspecialidadesDoMedico(Integer codigo) {
 
-        for (Medico m : medicos) {
+        for (Medico m : dataBaseMedicos) {
             if (m.getCodigo().equals(codigo)) {
                 break;
             }
@@ -257,6 +256,6 @@ public class MedicoDAO {
         return null;
 
     }
-;
+
 
 }

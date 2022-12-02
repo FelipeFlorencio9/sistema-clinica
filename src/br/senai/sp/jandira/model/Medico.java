@@ -6,7 +6,7 @@ import javax.swing.DefaultListModel;
 
 public class Medico extends Pessoa {
 
-    private static int contador = 000;
+    private static int contador = 100;
     private Integer codigo;
     private String crm;
     private ArrayList<Especialidade> especialidades;
@@ -52,10 +52,11 @@ public class Medico extends Pessoa {
     }
     
     public String getEspecialidadesPorCodigo(){
-        String especialidadesCriptografadas = new String();
-        this.especialidades.toString();
-        for(Especialidade e : this.especialidades){
-            especialidadesCriptografadas = especialidadesCriptografadas.concat(e.getCodigo() + "&");
+        String iteracao = null;
+        String especialidadesCriptografadas = "";
+        for(Especialidade e : especialidades){
+            iteracao = especialidadesCriptografadas.concat(e.getCodigo().toString() + "&");
+            especialidadesCriptografadas = iteracao;
             }
             return especialidadesCriptografadas;
     }
