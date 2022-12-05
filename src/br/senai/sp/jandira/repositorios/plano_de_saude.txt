@@ -1,1 +1,3 @@
-101;Cardiologia;Cuida do coração
+101;NotreDame Intermédica;Básico
+102;Hapvida Assistência Médica;Intermediário
+103;Bradesco Saúde;Avançado

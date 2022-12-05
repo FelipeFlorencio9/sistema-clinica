@@ -1,4 +1,3 @@
-108;Cardiologia ;Identificca e trata das doenças que acometem o coração bem como os outros componentes do sistema circulatório.
-110;Pediatria;Cuida de crianças e trato de menores.
-111;Dermatologia;Atua em procedimentos clínicos, cirúrgicos e cosmiátricos. 
-113;Diamante no Rocketinho;isso mesmo
+109;Cardiologia ;Identificca e trata das doenças que acometem o coração bem como os outros componentes do sistema circulatório.
+111;Pediatria;Cuida de crianças e trato de menores.
+112;Dermatologia;Atua em procedimentos clínicos, cirúrgicos e cosmiátricos. 
